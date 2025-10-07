@@ -12,7 +12,7 @@ public class StructuralFrame {
 
     // Профили
     private int verticalSingleFull;       // вертикальный одиночный полный
-    private int verticalSingleDouble;     // вертикальный одиночный парный
+    private int verticalDoubleFull;     // вертикальный одиночный парный
     private int verticalSingleTriple;     // вертикальный одиночный тройной
     private int verticalAboveWindow;      // вертикальный одиночный выше окна
     private int verticalBelowWindow;      // вертикальный одиночный ниже окна
@@ -37,7 +37,7 @@ public class StructuralFrame {
         verticalSingleFull = getIntInput(scanner);
 
         System.out.print("Количество вертикальный одиночный парный: ");
-        verticalSingleDouble = getIntInput(scanner);
+        verticalDoubleFull = getIntInput(scanner);
 
         System.out.print("Количество вертикальный одиночный тройной: ");
         verticalSingleTriple = getIntInput(scanner);
@@ -70,8 +70,8 @@ public class StructuralFrame {
         return verticalSingleFull;
     }
 
-    public int getVerticalSingleDouble() {
-        return verticalSingleDouble;
+    public int getVerticalDoubleFull() {
+        return verticalDoubleFull;
     }
 
     public int getVerticalSingleTriple() {
