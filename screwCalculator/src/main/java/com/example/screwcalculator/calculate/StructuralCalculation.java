@@ -12,7 +12,7 @@ public class StructuralCalculation {
 
         // количество шурупов на пересечениях вертикальных профилей и горизонтальных аерхнего и нижнего
 
-        return structuralFrame.getVerticalSingleFull() * 2;
+        return structuralFrame.getVerticalSingleFull() * 4;
     }
 
     public int countScrewVerticalDoubleStuds(StructuralFrame structuralFrame) {
