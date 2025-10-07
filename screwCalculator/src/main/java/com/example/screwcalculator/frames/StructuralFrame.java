@@ -26,7 +26,7 @@ public class StructuralFrame {
 
         // высота панели
         System.out.print("введите высоту панели в мм: ");
-        panelHeight = getPanelHeight();
+        panelHeight = getIntInputPanelHeight(scanner);
 
         // Наличие окна
         System.out.print("Введите количество окон: ");
@@ -112,6 +112,21 @@ public class StructuralFrame {
         while (true) {
             try {
                 return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Введите число, пожалуйста: ");
+            }
+        }
+    }
+
+    private int getIntInputPanelHeight(Scanner scanner) {
+        while (true) {
+            try {
+                int panelHeight = Integer.parseInt(scanner.nextLine().trim());
+                if (panelHeight < 1000 ) {
+                    System.out.println("Ошибка: панель не может быть меньше 1000 мм. Попробуйте снова.");
+                    continue;
+                }
+                return panelHeight;
             } catch (NumberFormatException e) {
                 System.out.print("Введите число, пожалуйста: ");
             }
