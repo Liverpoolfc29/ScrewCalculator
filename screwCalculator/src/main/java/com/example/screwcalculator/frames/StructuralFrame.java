@@ -11,15 +11,17 @@ public class StructuralFrame {
     private int panelHeight;
 
     // Профили
-    private int verticalSingleFull;       // вертикальный одиночный полный
+    private int verticalSingleFull;     // вертикальный одиночный полный
     private int verticalDoubleFull;     // вертикальный одиночный парный
-    private int verticalSingleTriple;     // вертикальный одиночный тройной
+    private int verticalTripleFull;     // вертикальный одиночный тройной
     private int verticalAboveWindow;      // вертикальный одиночный выше окна
     private int verticalBelowWindow;      // вертикальный одиночный ниже окна
     private int fullLengthBridges;        // бриджи полной длины
     private int shortLengthBridges;        // бриджи короткой длины
     private int fullLengthBridgesPlate;    // пластина бридж полной длины
-    private int shortLengthBridgesPlate;    // пластина бриджи короткой длины
+    private int shortLengthBridgesPlate;   // пластина бриджи короткой длины
+    private int stiffeners;                // кол Стифнерсов
+    private int mountPlate;                // кол боковых пластина для крепления к каркасу здания
 
     public void inputFromUser(Scanner scanner) {
         System.out.println("=== Ввод данных для структурной рамы ===");
@@ -40,7 +42,7 @@ public class StructuralFrame {
         verticalDoubleFull = getIntInput(scanner);
 
         System.out.print("Количество вертикальный одиночный тройной: ");
-        verticalSingleTriple = getIntInput(scanner);
+        verticalTripleFull = getIntInput(scanner);
 
         System.out.print("Количество вертикальный одиночный выше окна: ");
         verticalAboveWindow = getIntInput(scanner);
@@ -59,6 +61,12 @@ public class StructuralFrame {
 
         System.out.print("Количество пластин бриджей короткой длины: ");
         shortLengthBridgesPlate = getIntInput(scanner);
+
+        System.out.print("Количество Stiffeners (усилители возле пинов): ");
+        stiffeners = getIntInput(scanner);
+
+        System.out.print("Количество боковых пластин для крепления к каркасу здания: ");
+        mountPlate = getIntInput(scanner);
     }
 
     // Геттеры
@@ -74,8 +82,8 @@ public class StructuralFrame {
         return verticalDoubleFull;
     }
 
-    public int getVerticalSingleTriple() {
-        return verticalSingleTriple;
+    public int getVerticalTripleFull() {
+        return verticalTripleFull;
     }
 
     public int getVerticalAboveWindow() {
@@ -107,6 +115,14 @@ public class StructuralFrame {
         return panelHeight;
     }
 
+    public int getStiffeners() {
+        return stiffeners;
+    }
+
+    public int getMountPlate() {
+        return mountPlate;
+    }
+
     // Вспомогательные методы для ввода
     private int getIntInput(Scanner scanner) {
         while (true) {
@@ -122,7 +138,7 @@ public class StructuralFrame {
         while (true) {
             try {
                 int panelHeight = Integer.parseInt(scanner.nextLine().trim());
-                if (panelHeight < 1000 ) {
+                if (panelHeight < 1000) {
                     System.out.println("Ошибка: панель не может быть меньше 1000 мм. Попробуйте снова.");
                     continue;
                 }

@@ -19,10 +19,11 @@ public class MainScrewCalculator {
                 structuralCalculation.countScrewVerticalSingleStuds(structuralFrame));
 
         System.out.println(" Количество шурупов бриджей : = " +
-                structuralCalculation.countBridgesScrew(structuralFrame));
+                structuralCalculation.countFullLengthBridgesScrew(structuralFrame));
 
-        System.out.println(" Количество шурупов вертильных парных : = " +
-                structuralCalculation.countScrewVerticalDoubleStuds(structuralFrame));
+        System.out.println(" Количество шурупов вертильных парных или тройных : = " +
+                structuralCalculation.countScrewVerticalDoubleTripleStuds(structuralFrame));
 
+        structuralCalculation.StructuralFrameCalculate();
     }
 }
