@@ -1,5 +1,6 @@
 package com.example.screwcalculator;
 
+import com.example.screwcalculator.calculate.StructuralCalculation;
 import com.example.screwcalculator.frames.StructuralFrame;
 
 import java.util.Scanner;
@@ -9,12 +10,12 @@ public class MainScrewCalculator {
     static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        StructuralFrame frame = new StructuralFrame();
-        frame.inputFromUser(scanner);
+        StructuralFrame structuralFrame = new StructuralFrame();
+        structuralFrame.inputFromUser(scanner);
 
-// Пример использования:
-        System.out.println("Наличник окна: " + frame.hasWindowCasing());
-        System.out.println("Вертикальный одиночный полный: " + frame.getVerticalSingleFull());
+        StructuralCalculation structuralCalculation = new StructuralCalculation(structuralFrame);
 
+        int sum = structuralCalculation.StructuralFrameCalculate();
+        System.out.println(" Все винты структурной рамы = " + sum);
     }
 }
