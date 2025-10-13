@@ -6,17 +6,21 @@ public class StructuralFrame {
 
     // Наличие окна
     private int hasWindowCasing;
+    private boolean hasWindow = false;
 
     // Высота панели
     private int panelHeight;
 
+    // Ширина панели
+    private int panelWidth;
+
     // Профили
-    private int verticalSingleFull;     // вертикальный одиночный полный
-    private int verticalDoubleFull;     // вертикальный одиночный парный
-    private int verticalTripleFull;     // вертикальный одиночный тройной
-    private int verticalAboveWindow;      // вертикальный одиночный выше окна
-    private int verticalBelowWindow;      // вертикальный одиночный ниже окна
-    private int fullLengthBridges;        // бриджи полной длины
+    private int verticalSingleFull;        // вертикальный одиночный полный
+    private int verticalDoubleFull;        // вертикальный одиночный парный
+    private int verticalTripleFull;        // вертикальный одиночный тройной
+    private int verticalAboveWindow;       // вертикальный одиночный выше окна
+    private int verticalBelowWindow;       // вертикальный одиночный ниже окна
+    private int fullLengthBridges;         // бриджи полной длины
     private int shortLengthBridges;        // бриджи короткой длины
     private int fullLengthBridgesPlate;    // пластина бридж полной длины
     private int shortLengthBridgesPlate;   // пластина бриджи короткой длины
@@ -24,15 +28,35 @@ public class StructuralFrame {
     private int mountPlate;                // кол боковых пластина для крепления к каркасу здания
 
     public void inputFromUser(Scanner scanner) {
-        System.out.println("=== Ввод данных для структурной рамы ===");
+        System.out.println("=== Ввод Габаритов панели ===");
 
         // высота панели
         System.out.print("введите высоту панели в мм: ");
-        panelHeight = getIntInputPanelHeight(scanner);
+        panelHeight = getIntInputPanelHeight(scanner) - 245;
+
+        // ширина панели
+        System.out.print("введите ширину панели в мм: ");
+        panelWidth = getIntInputPanelHeight(scanner);
+
+        System.out.println("=== Ввод данных для структурной рамы ===");
 
         // Наличие окна
         System.out.print("Введите количество окон: ");
         hasWindowCasing = getIntInput(scanner);
+        if (hasWindowCasing != 0) {
+            hasWindow = true;
+            System.out.print("Количество вертикальный одиночный выше окна: ");
+            verticalAboveWindow = getIntInput(scanner);
+
+            System.out.print("Количество вертикальный одиночный ниже окна: ");
+            verticalBelowWindow = getIntInput(scanner);
+
+            System.out.print("Количество бриджей короткой  длины: ");
+            shortLengthBridges = getIntInput(scanner);
+
+            System.out.print("Количество пластин бриджей короткой длины: ");
+            shortLengthBridgesPlate = getIntInput(scanner);
+        }
 
         // Профили & бриджи & пластины
         System.out.print("Количество вертикальный одиночный полный: ");
@@ -44,23 +68,11 @@ public class StructuralFrame {
         System.out.print("Количество вертикальный одиночный тройной: ");
         verticalTripleFull = getIntInput(scanner);
 
-        System.out.print("Количество вертикальный одиночный выше окна: ");
-        verticalAboveWindow = getIntInput(scanner);
-
-        System.out.print("Количество вертикальный одиночный ниже окна: ");
-        verticalBelowWindow = getIntInput(scanner);
-
         System.out.print("Количество бриджей полной длины: ");
         fullLengthBridges = getIntInput(scanner);
 
-        System.out.print("Количество бриджей короткой  длины: ");
-        shortLengthBridges = getIntInput(scanner);
-
         System.out.print("Количество пластин бриджей полной длины: ");
         fullLengthBridgesPlate = getIntInput(scanner);
-
-        System.out.print("Количество пластин бриджей короткой длины: ");
-        shortLengthBridgesPlate = getIntInput(scanner);
 
         System.out.print("Количество Stiffeners (усилители возле пинов): ");
         stiffeners = getIntInput(scanner);
@@ -123,6 +135,10 @@ public class StructuralFrame {
         return mountPlate;
     }
 
+    public int getPanelWidth() {
+        return panelWidth;
+    }
+
     // Вспомогательные методы для ввода
     private int getIntInput(Scanner scanner) {
         while (true) {
@@ -149,5 +165,13 @@ public class StructuralFrame {
         }
     }
 
+
+    public boolean isHasWindow() {
+        return hasWindow;
+    }
+
+    public void setHasWindow(boolean hasWindow) {
+        this.hasWindow = hasWindow;
+    }
 
 }
