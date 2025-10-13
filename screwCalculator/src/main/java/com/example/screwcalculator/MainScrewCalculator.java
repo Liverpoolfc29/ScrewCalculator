@@ -13,17 +13,9 @@ public class MainScrewCalculator {
         StructuralFrame structuralFrame = new StructuralFrame();
         structuralFrame.inputFromUser(scanner);
 
-        StructuralCalculation structuralCalculation = new StructuralCalculation();
+        StructuralCalculation structuralCalculation = new StructuralCalculation(structuralFrame);
 
-        System.out.println(" Количество шурупов вертильных одиночных : = " +
-                structuralCalculation.countScrewVerticalSingleStuds(structuralFrame));
-
-        System.out.println(" Количество шурупов бриджей : = " +
-                structuralCalculation.countFullLengthBridgesScrew(structuralFrame));
-
-        System.out.println(" Количество шурупов вертильных парных или тройных : = " +
-                structuralCalculation.countScrewVerticalDoubleTripleStuds(structuralFrame));
-
-        structuralCalculation.StructuralFrameCalculate();
+        int sum = structuralCalculation.StructuralFrameCalculate();
+        System.out.println(" Все винты структурной рамы = " + sum);
     }
 }

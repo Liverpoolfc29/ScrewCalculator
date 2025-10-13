@@ -9,51 +9,68 @@ public class StructuralCalculation {
 
     private final int screwGapInDoubleFull = 300;
 
+    public StructuralCalculation(StructuralFrame structuralFrame) {
+        this.structuralFrame = structuralFrame;
+    }
+
     public int StructuralFrameCalculate() {
         int singleStuds = countScrewVerticalSingleStuds(structuralFrame);
+        int singleShortStuds = countScrewVerticalSingleShortStuds(structuralFrame);
         int doubleTripleStuds = countScrewVerticalDoubleTripleStuds(structuralFrame);
         int fullLengthBridgesScrew = countFullLengthBridgesScrew(structuralFrame);
         int shortLengthBridgeScrew = countShortLengthBridgeScrew(structuralFrame);
         int stiffenersScrew = countStiffenersScrew(structuralFrame);
         int mountPlateScrew = countMountPlateScrew(structuralFrame);
-        return singleStuds + doubleTripleStuds + fullLengthBridgesScrew + shortLengthBridgeScrew + stiffenersScrew + mountPlateScrew;
+        return singleStuds + singleShortStuds + doubleTripleStuds + fullLengthBridgesScrew + shortLengthBridgeScrew + stiffenersScrew + mountPlateScrew;
+    }
+
+    public int countScrewVerticalSingleShortStuds(StructuralFrame structuralFrame) {
+        // количество шурупов на пересечениях вертикальных коротких профилей и горизонтальных вернхнего и нижнего + окно между ними
+        int singleShort = (structuralFrame.getVerticalAboveWindow() + structuralFrame.getVerticalBelowWindow()) * 4;
+        System.out.println(" Количество шурупов вертикальных коротких профилей : = " + singleShort);
+        return singleShort;
     }
 
     public int countScrewVerticalSingleStuds(StructuralFrame structuralFrame) {
-        // количество шурупов на пересечениях вертикальных профилей и горизонтальных аерхнего и нижнего
-        return structuralFrame.getVerticalSingleFull() * 4;
+        // количество шурупов на пересечениях вертикальных профилей и горизонтальных верхнего и нижнего профиля рамы
+        int singleFull = structuralFrame.getVerticalSingleFull() * 4;
+        System.out.println(" Количество шурупов вертикальных полных профилей : = " + singleFull);
+        return singleFull;
     }
 
     public int countScrewVerticalDoubleTripleStuds(StructuralFrame structuralFrame) {
-
         int panelHeight = structuralFrame.getPanelHeight();
 
         int verticalDoubleFull = structuralFrame.getVerticalDoubleFull();       //
         if (verticalDoubleFull != 0) {
             int countScrewInDoubleFull = (int) Math.ceil((double) panelHeight / screwGapInDoubleFull * 2);
-            return countScrewInDoubleFull * verticalDoubleFull;
+            int doubleScrew = countScrewInDoubleFull * verticalDoubleFull;
+            System.out.println(" Количество шурупов вертикальных парных профилей : = " + doubleScrew);
+            return doubleScrew;
         }
         int verticalTripleFull = structuralFrame.getVerticalTripleFull();
         if (verticalTripleFull != 0) {
-            return (int) Math.ceil((double) (panelHeight / screwGapInDoubleFull * 2) * 4);
+            int tripleScrew = (int) Math.ceil((double) (panelHeight / screwGapInDoubleFull * 2) * 4);
+            System.out.println(" Количество шурупов вертикальных тройных профилей : = " + tripleScrew);
+            return tripleScrew;
         }
         return 0;
     }
 
     public int countFullLengthBridgesScrew(StructuralFrame structuralFrame) {
-        int countScrewIntersectBridgesAndSingleFull = structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalDoubleFull() + structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow()
-                * structuralFrame.getFullLengthBridges() * 2;
-        int countScrewIntersectBridgePlateAndSingleFull = structuralFrame.getFullLengthBridgesPlate() + structuralFrame.getVerticalDoubleFull() + structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow()
-                * structuralFrame.getFullLengthBridgesPlate() * 2;
-        return countScrewIntersectBridgesAndSingleFull + countScrewIntersectBridgePlateAndSingleFull;
+        int countScrewIntersectBridgesAndSingleFull = (structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow() * structuralFrame.getFullLengthBridges()) * 2;
+        int countScrewIntersectBridgePlateAndSingleFull = (structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow() * structuralFrame.getFullLengthBridgesPlate()) * 2;
+        int fullBridgeScrew = countScrewIntersectBridgesAndSingleFull + countScrewIntersectBridgePlateAndSingleFull;
+        System.out.println(" Количество шурупов бриджей и пластины полной длинны : = " + fullBridgeScrew);
+        return fullBridgeScrew;
     }
 
     public int countShortLengthBridgeScrew(StructuralFrame structuralFrame) {
-        int countScrewIntersectBridgesAndSingleFull = structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalDoubleFull() + structuralFrame.getVerticalSingleFull()
-                * structuralFrame.getShortLengthBridges() * 2;
-        int countScrewIntersectBridgePlateAndSingleFull = structuralFrame.getFullLengthBridgesPlate() + structuralFrame.getVerticalDoubleFull() + structuralFrame.getVerticalSingleFull()
-                * structuralFrame.getShortLengthBridges() * 2;
-        return countScrewIntersectBridgesAndSingleFull + countScrewIntersectBridgePlateAndSingleFull;
+        int countScrewShortBridges = ((structuralFrame.getVerticalSingleFull() - 2) * structuralFrame.getShortLengthBridges()) * 2;
+        int countScrewShortBridgePlate = ((structuralFrame.getVerticalSingleFull() - 2) * structuralFrame.getShortLengthBridgesPlate()) * 2;
+        int shortBridgeScrew = countScrewShortBridges + countScrewShortBridgePlate;
+        System.out.println(" Количество шурупов бриджей и пластины короткой длинны : = " + shortBridgeScrew);
+        return shortBridgeScrew;
     }
 
     public int countStiffenersScrew(StructuralFrame structuralFrame) {
@@ -62,12 +79,16 @@ public class StructuralCalculation {
         if (structuralFrame.hasWindowCasing() != 0) {
             windowStiffeners = stiffeners + 4;
         }
-        return windowStiffeners + stiffeners * 6;
+        int stiffenersScrew = windowStiffeners + stiffeners * 6;
+        System.out.println(" Количество шурупов стифнерса : = " + stiffenersScrew);
+        return stiffenersScrew;
     }
 
     public int countMountPlateScrew(StructuralFrame structuralFrame) {
         int mountPlate = structuralFrame.getMountPlate();
-        return mountPlate * 4;
+        int mountPlateScrew = mountPlate * 4;
+        System.out.println(" Количество шурупов пластины крепления : = " + mountPlateScrew);
+        return mountPlateScrew;
     }
 
     public int getScrewGapInDoubleFull() {
