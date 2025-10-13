@@ -14,11 +14,15 @@ public class StructuralCalculation {
     }
 
     public int StructuralFrameCalculate() {
+        int singleShortStuds= 0;
+        int shortLengthBridgeScrew = 0;
+        if (structuralFrame.isHasWindow()) {
+            singleShortStuds = countScrewVerticalSingleShortStuds(structuralFrame);
+            shortLengthBridgeScrew = countShortLengthBridgeScrew(structuralFrame);
+        }
         int singleStuds = countScrewVerticalSingleStuds(structuralFrame);
-        int singleShortStuds = countScrewVerticalSingleShortStuds(structuralFrame);
         int doubleTripleStuds = countScrewVerticalDoubleTripleStuds(structuralFrame);
         int fullLengthBridgesScrew = countFullLengthBridgesScrew(structuralFrame);
-        int shortLengthBridgeScrew = countShortLengthBridgeScrew(structuralFrame);
         int stiffenersScrew = countStiffenersScrew(structuralFrame);
         int mountPlateScrew = countMountPlateScrew(structuralFrame);
         return singleStuds + singleShortStuds + doubleTripleStuds + fullLengthBridgesScrew + shortLengthBridgeScrew + stiffenersScrew + mountPlateScrew;
@@ -58,8 +62,8 @@ public class StructuralCalculation {
     }
 
     public int countFullLengthBridgesScrew(StructuralFrame structuralFrame) {
-        int countScrewIntersectBridgesAndSingleFull = (structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow() * structuralFrame.getFullLengthBridges()) * 2;
-        int countScrewIntersectBridgePlateAndSingleFull = (structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow() * structuralFrame.getFullLengthBridgesPlate()) * 2;
+        int countScrewIntersectBridgesAndSingleFull = ((structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow()) * structuralFrame.getFullLengthBridges()) * 2;
+        int countScrewIntersectBridgePlateAndSingleFull = ((structuralFrame.getVerticalSingleFull() + structuralFrame.getVerticalAboveWindow()) * structuralFrame.getFullLengthBridgesPlate()) * 2;
         int fullBridgeScrew = countScrewIntersectBridgesAndSingleFull + countScrewIntersectBridgePlateAndSingleFull;
         System.out.println(" Количество шурупов бриджей и пластины полной длинны : = " + fullBridgeScrew);
         return fullBridgeScrew;
